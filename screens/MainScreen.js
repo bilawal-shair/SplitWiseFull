@@ -1,6 +1,5 @@
 import { StyleSheet, Image, Text, View, TouchableOpacity, Linking } from 'react-native'
 import React, { useEffect } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button } from '@rneui/themed'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
@@ -48,10 +47,12 @@ const MainScreen = ({navigation}) => {
     }
   }
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-        <View style={{flex:2}}>
+    
+    <ScrollView style={{flex:1, flexGrow:1,backgroundColor:'white'}} contentContainerStyle={{height:hp('100%')}}>
+        <View style={{paddingVertical:80}}>
             <Image 
-            style={{width: wp('50%'), height: hp('25%'), marginTop: rfv(50)}}
+            style={{width: wp('50%'), height: hp('20%'),alignSelf:'center' }}
+            resizeMode='contain'
             source={{
                 uri: "https://d1myhw8pp24x4f.cloudfront.net/software_logo/1551873717_splitwise-logo_mid.png"
             }}
@@ -60,12 +61,12 @@ const MainScreen = ({navigation}) => {
             <Text style={{fontSize: rfp(6), textAlign:'center'}}>Splitwise</Text>  
         </View>
            
-        <View style={{flex:1}}>
+        <View style={{justifyContent:'center', flex:1, alignItems:'center'}} >
         {/* rfv(20): 20% of the screen's width */}
             <View style={{ marginBottom:  rfv(20), }}>
                 <Button 
                     containerStyle={{
-                        width: 300,
+                        width: wp(80),
                     }}
                     buttonStyle={{
                         backgroundColor: '#11C08E',
@@ -82,7 +83,7 @@ const MainScreen = ({navigation}) => {
             <View style={{ marginBottom: rfv(20)}}>
                 <Button 
                     containerStyle={{
-                        width: 300,
+                        width: wp(80),
                     }}
                     buttonStyle={{
                         backgroundColor: 'white',
@@ -104,7 +105,7 @@ const MainScreen = ({navigation}) => {
                         promptAsync();
                     }} 
                     style={{flexDirection: 'row',  borderColor:'#D8D9D5',
-                        borderWidth:0.8,borderBottomWidth :2,  borderBottomColor: '#9DA29B', borderRadius:6, width: 300, justifyContent:"center",height:42, padding:10}}>
+                        borderWidth:0.8,borderBottomWidth :2,  borderBottomColor: '#9DA29B', borderRadius:6, width:wp(80), justifyContent:"center",height:42, padding:10}}>
                     <Image
                         style={{width:25, height:25 }}
                         source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCW82MIe3_DxiUjQUFlKNJrZuDng8sQ1Y_aQ&usqp=CAU"}}
@@ -113,7 +114,7 @@ const MainScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{alignSelf:'center',flexDirection: 'row', position: 'absolute', bottom: 20}}>
+            <View style={{alignSelf:'center',flexDirection: 'row', position: 'absolute', bottom:30}}>
                 <TouchableOpacity>
                     <Text style={styles.footer} onPress={() => Linking.openURL('https://www.splitwise.com/terms')} >Terms</Text>
                 </TouchableOpacity>
@@ -128,20 +129,14 @@ const MainScreen = ({navigation}) => {
             </View>
         </View>
     </ScrollView>
+    
   )
 }
 
 export default MainScreen
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,  
-        flexGrow:1,    
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "white",
-    },
     footer:{ 
         textDecorationLine: 'underline',
-    }
+    },
 })

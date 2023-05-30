@@ -4,10 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { FontAwesome, Entypo, AntDesign, Ionicons } from '@expo/vector-icons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const GroupScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex:1}}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
       <View style={styles.header}>
         <TouchableOpacity>
           <FontAwesome name="search" size={24} color="black" style={{marginRight: 30}}/>
@@ -36,7 +38,7 @@ const GroupScreen = ({navigation}) => {
           </Entypo.Button>
         </View>
       </View>
-      
+      </KeyboardAwareScrollView> 
     </SafeAreaView>
       
   )
