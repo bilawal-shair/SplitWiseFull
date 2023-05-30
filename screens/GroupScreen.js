@@ -6,10 +6,19 @@ import { useState } from 'react';
 import AddGroup from './AddGroup';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
+// import { useSelector } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const GroupScreen = ({ navigation }) => {
 
+const GroupScreen = ({ navigation }) => {
+  // const user = useSelector((state)=> state.user.user);
+  // if (user) {
+  //   // User information is available in the Redux store
+  //   console.log('User information:', user);
+  // } else {
+  //   // User information is not available in the Redux store
+  //   console.log('User information is not available');
+  // }
 
   return (
     <SafeAreaView style={{flex:1}}>
@@ -22,6 +31,7 @@ const GroupScreen = ({ navigation }) => {
           <AntDesign name="addusergroup" size={24} color="black" style={{ marginRight: 15 }} />
         </TouchableOpacity>
       </View>
+
 
       <View style={{flex:1}}>
         <Text style={{marginTop: 20, fontSize: 20, padding: 20}}>Welcome to Splitwise!</Text>
