@@ -2,14 +2,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
-
-
-
 import { useState } from 'react';
 import AddGroup from './AddGroup';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
 // import { useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 const GroupScreen = ({ navigation }) => {
   // const user = useSelector((state)=> state.user.user);
@@ -22,7 +21,8 @@ const GroupScreen = ({ navigation }) => {
   // }
 
   return (
-    <SafeAreaView style={{ flex:1}}>
+    <SafeAreaView style={{flex:1}}>
+    <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
       <View style={styles.header}>
         <TouchableOpacity>
           <FontAwesome name="search" size={24} color="black" style={{ marginRight: 30 }} />
@@ -31,37 +31,8 @@ const GroupScreen = ({ navigation }) => {
           <AntDesign name="addusergroup" size={24} color="black" style={{ marginRight: 15 }} />
         </TouchableOpacity>
       </View>
-      <View style={{ flexDirection: "row", marginTop: 30 }}>
-
-        <Text style={{ fontSize: 18, marginLeft: 30 }}>Ali akram</Text>
-
-        {/* <View style={{ marginTop: 10 }}>
-          <Text style={{ fontSize: 18, marginLeft: 30 }}>Welcome to Splitwise,{name} !</Text>
-        </View>
-
-        <View style = {{marginLeft: -10,marginTop: -20, width:158,height:300, borderRadius: 10}}>
-          <Popup />
-        </View> */}
-      </View>
 
 
-      <Image
-        style={{ height: 150, width: 150, alignSelf: 'center', borderRadius: 100, marginTop: 40, marginLeft: -10 }}
-        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJICAGv_L0qYVN1XfisY8xSlKRWrpYbNjzqA&usqp=CAU' }}
-      />
-
-      <Text style={{ padding: 30, fontSize: 20, textAlign: 'center' }}>Splitwise groups you create or are added to will show here.</Text>
-
-      <View style={{ height: 40, width: 200, alignSelf: 'center', borderColor: 'green', borderWidth: 1, borderRadius: 6 }} >
-        <AntDesign.Button name="addusergroup" backgroundColor="white" color="green" size={20} onPress={() => navigation.navigate("Addgroup")} >
-          <Text style={{ color: 'green', textAlign: 'center', fontSize: 17 }}>Start a new group </Text>
-        </AntDesign.Button>
-      </View>
-      <View style={{ alignSelf: 'flex-end', paddingVertical: 120, alignItems: 'center', marginRight: 20, marginTop: -70 }}>
-        <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E' height={50} width={150} borderRadius={30} marginLeft={13}>
-          <Text style={{ color: 'white', fontSize: 17 }}>Add Expense</Text>
-        </Entypo.Button>
-      </View>
       <View style={{flex:1}}>
         <Text style={{marginTop: 20, fontSize: 20, padding: 20}}>Welcome to Splitwise!</Text>
         <Image 
@@ -82,6 +53,7 @@ const GroupScreen = ({ navigation }) => {
           {/* <Popup /> */}
         </View>
       </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
 
   )

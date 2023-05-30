@@ -66,7 +66,7 @@ const ActivityScreen = () => {
   return (
 
     <SafeAreaView style={styles.container}>
-      <Text style={{fontSize: 40, marginTop: RFValue(60), marginLeft: RFValue(20)}}>Activity</Text>
+      <Text style={{fontSize:RFPercentage(4), marginLeft: RFValue(10), marginBottom: RFValue(5)}}>Activity</Text>
       {/* <Text style={{marginTop: RFValue(200), textAlign: 'center', fontSize: RFPercentage(3), padding: RFValue(20)}}>There is no activity in your account yet. Try adding an expense!</Text> */}
 
       {/* <View style={{ flex:1, alignSelf:'flex-end',paddingVertical: RFValue(80),  alignItems:'center' , marginRight:RFValue(20)}}>
@@ -76,11 +76,12 @@ const ActivityScreen = () => {
       </View> */}
 
       <FlatList 
-      style={{alignSelf:"center"}}
+      showsVerticalScrollIndicator={false}
+      //style={{alignSelf:"center"}}
       data={data} 
       keyExtractor={(item) => item.id}
       renderItem={({ item }) =>(
-      <TouchableOpacity style={{padding:20}}> 
+      <TouchableOpacity style={{padding:RFValue(10)}}> 
       <View style={{flexDirection:"row"}}>
       <Image 
        style={{width:50, height:50, borderRadius:10}}
@@ -103,6 +104,7 @@ export default ActivityScreen
 const styles = StyleSheet.create({
   container:{
     flex:1,
+    padding:20,
     //alignItems:'center',
     //justifyContent:'center'
   },
