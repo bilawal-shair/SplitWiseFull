@@ -14,6 +14,8 @@ import OutStandingBalanceScreen from './screens/OutstandingBalanceScreen';
 import GroupOweScreen from './screens/GroupOweScreen';
 import ForgetPassword from './screens/ForgetPassword';
 import ThatOweScreen from './screens/ThatOweScreen';
+import { Provider } from 'react-redux';
+import store from './store';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -26,6 +28,7 @@ export default function App() {
   },[]);
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <StatusBar style="auto" />
       <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -43,6 +46,7 @@ export default function App() {
         <Stack.Screen name="Reset Password" component={ForgetPassword} options={{headerShown: true}}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

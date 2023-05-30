@@ -1,5 +1,5 @@
 import { StyleSheet, Image, Text, View, TouchableOpacity, Linking } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button } from '@rneui/themed'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -8,45 +8,54 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../UserSlices/UserReducer';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const MainScreen = ({navigation}) => {
-  const [userInfo, setUserInfo] = React.useState();
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: "463959517341-51qiaev28f5eb70j5j7lbrak3mhceeo1.apps.googleusercontent.com",
-    androidClientId: "1016676274959-tgd3qvisqdv4l0m62d47dq233un9tmfa.apps.googleusercontent.com",
-  }); 
 
-  useEffect(() =>{
-    handleSigninwithGoogle();
-  },[response])
-  async function handleSigninwithGoogle() {
-    const user = await AsyncStorage.getItem("@user");
-    if(!user){
-        if(response?.type === "success"){
-            await getUserInfo(response.authentication.accessToken);
-        }
-    }else{
-        setUserInfo(JSON.parse(user));
+const MainScreen = ({navigation}) => {
+  const dispatch = useDispatch();  
+  const [token, setToken] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: "755078804989-59kd0m5j75oa8im906opnejn99sf69qg.apps.googleusercontent.com",
+    // androidClientId: "1016676274959-tgd3qvisqdv4l0m62d47dq233un9tmfa.apps.googleusercontent.com",
+  }); 
+  
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      setToken(response.authentication.accessToken);
+      getUserInfo();
     }
-  }
-  const getUserInfo = async (token) =>{
-    if (!token) return;
-    try{
-        const response = await fetch(
-            "https://www.googleapis.com/userinfo/v2/me",
-            {
-                headers: {Autherization: `Bearer ${token}`},
-            }
+  }, [response, token]);
+
+  const getUserInfo = async () => {
+    try {
+      const response = await fetch(
+        "https://www.googleapis.com/userinfo/v2/me",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
         );
         const user = await response.json();
-        await AsyncStorage.setItem("@user", JSON.stringify(user));
-        setUserInfo(user);
-        navigation.navigate("Dashboard")
-    } catch (error){
+        const userName = user.name;
+        const userEmail = user.email;
+        
+        const userInfo = {
+            name: userName,
+            email: userEmail,
+           
+          };
+          setUserInfo(userInfo);
+          dispatch(setUser(userInfo));
+          console.log(userInfo);
+        } catch (error) {
+          // Add your own error handler here
+        }
+  
     }
-  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
         <View style={{flex:2}}>
@@ -99,7 +108,10 @@ const MainScreen = ({navigation}) => {
             </View>
 
             <View style={{ marginBottom: rfv(20)}}>
+            {userInfo === null?(
                 <TouchableOpacity 
+                // onSuccess={responseGoogle}
+                // onFailure={responseGoogle}
                     onPress={() => {
                         promptAsync();
                     }} 
@@ -110,7 +122,8 @@ const MainScreen = ({navigation}) => {
                         source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCW82MIe3_DxiUjQUFlKNJrZuDng8sQ1Y_aQ&usqp=CAU"}}
                     />
                     <Text style={{fontSize: rfp(2)}}>  Sign in with Google</Text>
-                </TouchableOpacity>
+                    
+                </TouchableOpacity>) : (navigation.navigate("Dashboard"))}
             </View>
 
             <View style={{alignSelf:'center',flexDirection: 'row', position: 'absolute', bottom: 20}}>

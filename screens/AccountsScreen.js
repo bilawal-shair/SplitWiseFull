@@ -8,8 +8,19 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { useSelector } from 'react-redux';
+
 const AccountsScreen = ({navigation}) => {
+  const user = useSelector((state)=> state.user.user);
   const [image, setImage] = useState(null);
+  if (user) {
+    // User information is available in the Redux store
+    console.log('User information:', user);
+  } else {
+    // User information is not available in the Redux store
+    console.log('User information is not available');
+  }
+  
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -35,10 +46,12 @@ const AccountsScreen = ({navigation}) => {
     {image && <Image source={{ uri: image }} style={{ width: 70, height: 70, borderRadius:40 }} />}
       <AntDesign onPress={pickImage} style={{position: 'absolute', top: 50, left: 50}} name="camera" size={24} color="black" />
   </View>
+   
       <View style={{width:500}}>
-        <Text style={{marginTop:10, marginLeft:30}}>Anam</Text>
-        <Text style={{marginTop:10, marginLeft:30}}>Anam.k51014@gmail.com</Text>
+        <Text style={{marginTop:10, marginLeft:30}}>{user.name}</Text>
+        <Text style={{marginTop:10, marginLeft:30}}>{user.email}</Text>
       </View>
+   
     </View> 
 
     <View style={{height:1, backgroundColor:"lightgray", marginTop:10}}></View>

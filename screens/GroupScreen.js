@@ -9,9 +9,17 @@ import { useState } from 'react';
 import AddGroup from './AddGroup';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
+// import { useSelector } from 'react-redux';
 
 const GroupScreen = ({ navigation }) => {
-
+  // const user = useSelector((state)=> state.user.user);
+  // if (user) {
+  //   // User information is available in the Redux store
+  //   console.log('User information:', user);
+  // } else {
+  //   // User information is not available in the Redux store
+  //   console.log('User information is not available');
+  // }
 
   return (
     <SafeAreaView style={{ flex:1}}>
@@ -25,7 +33,7 @@ const GroupScreen = ({ navigation }) => {
       </View>
       <View style={{ flexDirection: "row", marginTop: 30 }}>
 
-        <Text style={{ fontSize: 18, marginLeft: 30 }}>Welcome to Splitwise,Bilawal!</Text>
+        <Text style={{ fontSize: 18, marginLeft: 30 }}>Ali akram</Text>
 
         {/* <View style={{ marginTop: 10 }}>
           <Text style={{ fontSize: 18, marginLeft: 30 }}>Welcome to Splitwise,{name} !</Text>
