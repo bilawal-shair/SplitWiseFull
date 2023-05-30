@@ -5,6 +5,8 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Input } from '@rneui/themed';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { RFValue as rfv, RFPercentage as rfp } from 'react-native-responsive-fontsize';
 
 const AddGroup = ({navigation}) => {
   const [type,setType]=useState();
@@ -12,45 +14,45 @@ const AddGroup = ({navigation}) => {
     <SafeAreaView>
       <View style={styles.header}>
         <AntDesign name="close" size={24} color="black" marginLeft={20} onPress={()=>navigation.goBack()}/>
-        <Text style={{flex: 1, fontSize: 20, textAlign:'center'}}>Create a group</Text>
-        <Text style={{marginRight: 20, fontSize: 18, color:'green'}} onPress={()=> navigation.navigate("AllGroupScreen")}  >Done</Text>   
+        <Text style={{flex: 1, fontSize: rfp(3), textAlign:'center'}}>Create a group</Text>
+        <Text style={{marginRight: rfv(20), fontSize: rfp(2.5), color:'green'}} onPress={()=> navigation.navigate("AllGroupScreen")}  >Done</Text>   
       </View>
       <View style={{flexDirection:'row', }}>
-        <View style={{marginLeft: 20, marginTop:40, width: 60, height: 60, backgroundColor:'#caced3', 
+        <View style={{marginLeft: rfv(20), marginTop:rfv(40), width: wp(16), height:hp(8), backgroundColor:'#caced3', 
           borderColor:'gray', borderWidth: 1, borderRadius: 8, alignItems:'center', justifyContent:'center'}}>
           <MaterialIcons name="add-a-photo" size={24} color="black"/>
         </View>
-        <View style={{width:280}}>
-          <Text style={{ marginLeft:10,marginTop:40, fontSize: 15}}>Group name</Text>
+        <View style={{width:wp(180)}}>
+          <Text style={{ marginLeft:rfv(10),marginTop:rfv(40), fontSize: rfp(2.2)}}>Group name</Text>
           <Input style={{ borderBottomWidth:1, borderBottomColor:'green'}}/>
         </View>
       </View>
-      <Text style={{marginLeft:20, fontSize:18, marginBottom:20}}>Type</Text>
+      <Text style={{marginLeft:rfv(20), fontSize:rfp(2.5), marginBottom:rfv(20)}}>Type</Text>
 
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <TouchableOpacity
           onPress={() => setType( 'Trip' )} 
-          style={{marginLeft: 40, flexDirection:'row', marginHorizontal: 8, padding:10, borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Trip' ? 'green' : 'white'}}>
+          style={{marginLeft: rfv(30), flexDirection:'row', marginHorizontal:rfv(8), padding:rfv(10), borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Trip' ? 'green' : 'white'}}>
           <SimpleLineIcons name="plane" size={22} color="black" />
-          <Text style={{fontSize:18}}> Trip</Text>
+          <Text style={{fontSize:rfp(2.5)}}> Trip</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setType( 'Home' )}
-          style={{flexDirection:'row', padding:10, marginHorizontal: 8, borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Home' ? 'green' : 'white'}}>
+          style={{flexDirection:'row', padding:rfv(10), marginHorizontal:rfv(8) , borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Home' ? 'green' : 'white'}}>
           <SimpleLineIcons name="home" size={22} color="black" />
-          <Text style={{fontSize:18}}> Home</Text>
+          <Text style={{fontSize:rfp(2.5)}}> Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setType( 'Couple' )}
-          style={{flexDirection:'row', padding:10, marginHorizontal: 8, borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Couple' ? 'green' : 'white'}}>
+          style={{flexDirection:'row', padding:rfv(10), marginHorizontal: rfv(8), borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Couple' ? 'green' : 'white'}}>
           <SimpleLineIcons name="heart" size={22} color="black" />
-          <Text style={{fontSize:18}}> Couple</Text>
+          <Text style={{fontSize: rfp(2.5)}}> Couple</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           onPress={() => setType( 'Others' )}
-          style={{flexDirection:'row', padding:10, marginHorizontal: 8, borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Others' ? 'green' : 'white'}}>
+          style={{flexDirection:'row', padding:rfv(10), marginHorizontal:rfv(8) , borderColor:'gray', borderWidth: 1, borderRadius:24, backgroundColor: type === 'Others' ? 'green' : 'white'}}>
           <AntDesign name="profile" size={22} color="black" />
-          <Text style={{fontSize:18}}> Others</Text>
+          <Text style={{fontSize:rfp(2.5)}}> Others</Text>
         </TouchableOpacity> 
        
       </ScrollView>
