@@ -8,17 +8,15 @@ import ActivityScreen from './ActivityScreen';
 import AccountsScreen from './AccountsScreen';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-
-
 const Tab = createBottomTabNavigator();
 
 const DashboardScreen = () => {
     return (
-            <Tab.Navigator screenOptions={{
-              headerShown: false, 
-              tabBarStyle:{height:50}, 
-              tabBarActiveTintColor:'#11C08E',
-              tabBarInactiveTintColor:Colors.primary2}}>
+        <Tab.Navigator screenOptions={{
+            headerShown: false, 
+            tabBarStyle:{height:50}, 
+            tabBarActiveTintColor:'#11C08E',
+            tabBarInactiveTintColor:Colors.primary2}}>
                 <Tab.Screen 
                     name='Groups' 
                     component={GroupScreen}
@@ -56,8 +54,7 @@ const DashboardScreen = () => {
                         ),
                     }}
                 />
-               
-            </Tab.Navigator>
+        </Tab.Navigator>
       
     );
 }
