@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Button, Icon, Input } from '@rneui/themed';
 import axios from 'axios';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ForgetPassword from './ForgetPassword';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
