@@ -4,34 +4,23 @@ import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, FlatList }
 import { MaterialCommunityIcons, AntDesign, Entypo, FontAwesome, MaterialIcons, Ionicons, Icon } from '@expo/vector-icons';
 import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import React from 'react';
-
-
-
-
 const AllGroupScreen = () => {
-
-
-
   const [selectedOption, setSelectedOption] = useState(null);
   const [filled, setFilled] = useState(false);
-
-
-
   const handleOptionSelection = (option) => {
     setSelectedOption(option);
   };
-
   const handlePress = () => {
     setFilled(!filled);
   };
+import DashboardScreen from './DashboardScreen';
+import React from 'react';
 
+// import { AntDesign } from '@expo/vector-icons';
+{/* <MenuTrigger text="Open menu" /> */ }
 
-
-
-
-
+const AllGroupScreen = ({navigation}) => {
   const dummyData = [
     { id: '1', name: 'no expenses', image: require('../assets/th.jpeg') },
 
@@ -93,6 +82,18 @@ const AllGroupScreen = () => {
             </Entypo.Button>
           </View>
         </View>
+  const handleOptionSelection = (Option) => {
+    setSalectedOption(Option)
+  };
+
+  const renderSelectedView = () => {
+    if (selectedOption === 'All Group') {
+      return (
+        navigation.navigate("AllGroupScreen")    
+      );
+    } else if (selectedOption === 'outStandingBalance') {
+      return (
+        navigation.navigate("outStandingBalanceScreen")
       );
     } else if (selectedOption === 'groupOweScreen') {
       return (
@@ -245,9 +246,29 @@ const AllGroupScreen = () => {
 
            
 
-            </MenuOption>
-            <MenuOption onSelect={() => handleOptionSelection('groupOweScreen')}>
 
+      <View style={{ flex: 1 }}>
+        <Menu >
+          <MenuTrigger>
+            <MaterialCommunityIcons style={{ padding: 10, marginLeft: 300, marginTop: 10 }} name="menu-open" size={35} color="black" />
+          </MenuTrigger>
+          <MenuOptions optionsContainerStyle={{ marginLeft: 130, marginTop: 70 }}>
+
+            <MenuOption onSelect={() => handleOptionSelection('All Group')}>
+              <View style={{ flexDirection: "row", marginTop: 10, marginLeft: 15 }}>
+                <Entypo style={{ marginTop: 8 }} name="circle" size={18} color="black" />
+                <Text style={{ padding: 10 }}>All groups</Text>
+              </View>
+            </MenuOption>
+
+            <MenuOption onSelect={() => handleOptionSelection('outStandingBalance')}>
+              <View style={{ flexDirection: "row", marginLeft: 15 }}>
+                <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
+                <Text style={{ padding: 10 }}>Outstanding balance</Text>
+              </View>
+            </MenuOption>
+
+            <MenuOption onSelect={() => handleOptionSelection('groupOweScreen')}>
               <View style={{ flexDirection: "row", marginLeft: 15 }}>
 
                 {filled ? (
@@ -256,13 +277,12 @@ const AllGroupScreen = () => {
                   <FontAwesome name="circle-o" size={24} color="black" style={{ marginTop: 8 }} />
                 )}
                 <Text style={{ padding: 10 }}>Groups you owe</Text>
-
+                <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
+                <Text style={{ padding: 10 }}>Groups ypu owe</Text>
               </View>
-
             </MenuOption>
 
             <MenuOption onSelect={() => handleOptionSelection('thatOweScreen')}>
-
               <View style={{ flexDirection: "row", marginLeft: 15 }}>
 
                 {filled ? (
@@ -270,18 +290,21 @@ const AllGroupScreen = () => {
                 ) : (
                   <FontAwesome name="circle-o" size={24} color="black" style={{ marginTop: 8 }} />
                 )}
+                <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
                 <Text style={{ padding: 10 }}>Groups that owe you</Text>
-
               </View>
-
             </MenuOption>
+
           </MenuOptions>
         </Menu>
 
         {renderSelectedView()}
-
-
-
+        <View style={{ flex: 1 }}>
+          <View style={{ flexDirection: "row", marginTop: 5 }}>
+            <View style={{ marginTop: 2 }}>
+              <Text style={{ fontSize: 18, marginLeft: 50, marginTop: -50 }}>you are all settled up</Text>
+            </View>
+          </View>
 
         <View style={{ marginLeft: 30 }}>
           <Text style={{ marginLeft: 10 }}>You are all settled up!</Text>
@@ -293,6 +316,16 @@ const AllGroupScreen = () => {
             renderItem={renderListItem}
           />
 
+            <View style={{ marginTop: 20, marginLeft: 9 }}> 
+              <Text> Non-group expenses no expenses</Text>
+            </View>
+            
+          </View>
+
+          <View style={{ marginTop: 20, marginLeft:40 }}>
+            <Text> Hiding groups that have been settled up</Text>
+            <Text style = {{marginLeft: 60}}> Over one month.</Text>
+          </View>
 
 
           <View style={{ height: 40, width: 200, alignSelf: 'center', borderColor: 'green', borderWidth: 1, borderRadius: 6, marginTop: 60 }} >
@@ -303,6 +336,9 @@ const AllGroupScreen = () => {
 
 
           <View style={{ alignSelf: 'flex-end', paddingVertical: 120, alignItems: 'center', marginRight: 20, marginTop: 30 }}>
+
+          <View style={{ alignSelf: 'flex-end', paddingVertical: 120, alignItems: 'center', marginRight: 20, marginTop: 100 }}>
+
             <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E' height={50} width={150} borderRadius={30} marginLeft={13}>
               <Text style={{ color: 'white', fontSize: 17 }}>Add Expense</Text>
             </Entypo.Button>
@@ -313,6 +349,12 @@ const AllGroupScreen = () => {
 
 
     </MenuProvider>
+        </View>       
+      </View>
+
+    {renderSelectedView()}
+  </MenuProvider>
+
   )
 
 }
@@ -332,5 +374,4 @@ const styles = StyleSheet.create({
 })
 
 
-//<Text style={{ fontSize: 22,padding: 5, marginLeft: 100, marginTop: 22 }}>...</Text>
 

@@ -1,5 +1,5 @@
 import { StyleSheet, Image, Text, View, TouchableOpacity, Linking } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button } from '@rneui/themed'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -8,50 +8,61 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../UserSlices/UserReducer';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const MainScreen = ({navigation}) => {
-  const [userInfo, setUserInfo] = React.useState();
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: "463959517341-51qiaev28f5eb70j5j7lbrak3mhceeo1.apps.googleusercontent.com",
-    androidClientId: "1016676274959-tgd3qvisqdv4l0m62d47dq233un9tmfa.apps.googleusercontent.com",
-  }); 
 
-  useEffect(() =>{
-    handleSigninwithGoogle();
-  },[response])
-  async function handleSigninwithGoogle() {
-    const user = await AsyncStorage.getItem("@user");
-    if(!user){
-        if(response?.type === "success"){
-            await getUserInfo(response.authentication.accessToken);
-        }
-    }else{
-        setUserInfo(JSON.parse(user));
+const MainScreen = ({navigation}) => {
+  const dispatch = useDispatch();  
+  const [token, setToken] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: "755078804989-59kd0m5j75oa8im906opnejn99sf69qg.apps.googleusercontent.com",
+    // androidClientId: "1016676274959-tgd3qvisqdv4l0m62d47dq233un9tmfa.apps.googleusercontent.com",
+  }); 
+  
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      setToken(response.authentication.accessToken);
+      getUserInfo();
     }
-  }
-  const getUserInfo = async (token) =>{
-    if (!token) return;
-    try{
-        const response = await fetch(
-            "https://www.googleapis.com/userinfo/v2/me",
-            {
-                headers: {Autherization: `Bearer ${token}`},
-            }
+  }, [response, token]);
+
+  const getUserInfo = async () => {
+    try {
+      const response = await fetch(
+        "https://www.googleapis.com/userinfo/v2/me",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
         );
         const user = await response.json();
-        await AsyncStorage.setItem("@user", JSON.stringify(user));
-        setUserInfo(user);
-        navigation.navigate("Dashboard")
-    } catch (error){
+        const userName = user.name;
+        const userEmail = user.email;
+        
+        const userInfo = {
+            name: userName,
+            email: userEmail,
+           
+          };
+          setUserInfo(userInfo);
+          dispatch(setUser(userInfo));
+          console.log(userInfo);
+        } catch (error) {
+          // Add your own error handler here
+        }
+  
     }
-  }
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-        <View style={{flex:2}}>
+    
+    <ScrollView style={{flex:1, flexGrow:1,backgroundColor:'white'}} contentContainerStyle={{height:hp('100%')}}>
+        <View style={{paddingVertical:80}}>
             <Image 
-            style={{width: wp('50%'), height: hp('25%'), marginTop: rfv(50)}}
+            style={{width: wp('50%'), height: hp('20%'),alignSelf:'center' }}
+            resizeMode='contain'
             source={{
                 uri: "https://d1myhw8pp24x4f.cloudfront.net/software_logo/1551873717_splitwise-logo_mid.png"
             }}
@@ -60,12 +71,12 @@ const MainScreen = ({navigation}) => {
             <Text style={{fontSize: rfp(6), textAlign:'center'}}>Splitwise</Text>  
         </View>
            
-        <View style={{flex:1}}>
+        <View style={{justifyContent:'center', flex:1, alignItems:'center'}} >
         {/* rfv(20): 20% of the screen's width */}
             <View style={{ marginBottom:  rfv(20), }}>
                 <Button 
                     containerStyle={{
-                        width: 300,
+                        width: wp(80),
                     }}
                     buttonStyle={{
                         backgroundColor: '#11C08E',
@@ -82,7 +93,7 @@ const MainScreen = ({navigation}) => {
             <View style={{ marginBottom: rfv(20)}}>
                 <Button 
                     containerStyle={{
-                        width: 300,
+                        width: wp(80),
                     }}
                     buttonStyle={{
                         backgroundColor: 'white',
@@ -99,21 +110,25 @@ const MainScreen = ({navigation}) => {
             </View>
 
             <View style={{ marginBottom: rfv(20)}}>
+            {userInfo === null?(
                 <TouchableOpacity 
+                // onSuccess={responseGoogle}
+                // onFailure={responseGoogle}
                     onPress={() => {
                         promptAsync();
                     }} 
                     style={{flexDirection: 'row',  borderColor:'#D8D9D5',
-                        borderWidth:0.8,borderBottomWidth :2,  borderBottomColor: '#9DA29B', borderRadius:6, width: 300, justifyContent:"center",height:42, padding:10}}>
+                        borderWidth:0.8,borderBottomWidth :2,  borderBottomColor: '#9DA29B', borderRadius:6, width:wp(80), justifyContent:"center",height:42, padding:10}}>
                     <Image
                         style={{width:25, height:25 }}
                         source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCW82MIe3_DxiUjQUFlKNJrZuDng8sQ1Y_aQ&usqp=CAU"}}
                     />
                     <Text style={{fontSize: rfp(2)}}>  Sign in with Google</Text>
-                </TouchableOpacity>
+                    
+                </TouchableOpacity>) : (navigation.navigate("Dashboard"))}
             </View>
 
-            <View style={{alignSelf:'center',flexDirection: 'row', position: 'absolute', bottom: 20}}>
+            <View style={{alignSelf:'center',flexDirection: 'row', position: 'absolute', bottom:30}}>
                 <TouchableOpacity>
                     <Text style={styles.footer} onPress={() => Linking.openURL('https://www.splitwise.com/terms')} >Terms</Text>
                 </TouchableOpacity>
@@ -128,20 +143,14 @@ const MainScreen = ({navigation}) => {
             </View>
         </View>
     </ScrollView>
+    
   )
 }
 
 export default MainScreen
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,  
-        flexGrow:1,    
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "white",
-    },
     footer:{ 
         textDecorationLine: 'underline',
-    }
+    },
 })

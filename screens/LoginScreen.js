@@ -8,7 +8,7 @@ import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ForgetPassword from './ForgetPassword';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { RFPercentage as rfp, RFValue as rfv } from 'react-native-responsive-fontsize';
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
@@ -39,17 +39,18 @@ const LoginScreen = ({navigation}) => {
     
 
   return (
-    <KeyboardAwareScrollView enableAutomaticScroll style={styles.container }>
-      <StatusBar barStyle = "dark"/>
+    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
+      {/* <StatusBar barStyle = "dark"/> */}
         <TouchableOpacity  onPress={() =>navigation.navigate("Main")}>
             <AntDesign 
                 name="arrowleft" size={24} color="black" 
             />
         </TouchableOpacity>
-       <Text style={{fontSize:28, paddingTop:30}}>Welcome back to Splitwise!</Text>
+       <Text style={{fontSize:rfp(4), paddingTop:rfv(40)}}>Welcome back to Splitwise!</Text>
        
-        <View style={{paddingTop:23}}>
-            <Text style={{fontSize: 16}}>Email address</Text>
+        <View style={{paddingTop:rfv(30)}}>
+            <Text style={{fontSize: rfp(2.2), marginLeft:rfv(8)}}>Email address</Text>
             <Input
                 autofocus
                 type="email"
@@ -57,7 +58,7 @@ const LoginScreen = ({navigation}) => {
                 onChangeText ={(text) => setEmail(text)}
             />
         
-            <Text style={{fontSize: 16}}> Password</Text>
+            <Text style={{fontSize: rfp(2.2), marginLeft:rfv(4)}}> Password</Text>
             <View style={{flexDirection:"row", }}>
                 <Input
                 autofocus
@@ -68,7 +69,7 @@ const LoginScreen = ({navigation}) => {
                 />
                 <TouchableOpacity> 
                     <Ionicons  
-                        name={hidePass ? 'eye' : 'eye-off'}
+                        name={hidePass ? 'eye-off' : 'eye'}
                         size={24} 
                         color="black" 
                         style={{
@@ -95,6 +96,7 @@ const LoginScreen = ({navigation}) => {
          <Text style={{textAlign:"center", fontSize:16, padding:25}} onPress={() => navigation.navigate('Reset Password')}> Forgot your password? </Text>
         </View>
     </KeyboardAwareScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -102,7 +104,10 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
     container:{
-        padding:30,
+      flex: 1,
+      //flexDirection:'column',
+      backgroundColor: "white",
+      padding:25,
       },
       Button:{
         alignSelf: "center",

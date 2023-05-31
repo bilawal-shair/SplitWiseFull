@@ -1,10 +1,9 @@
-
-import { Alert, Image, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Keyboard } from 'react-native'
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context' 
 import { Linking } from 'react-native'
 import { Button, Input } from '@rneui/themed';
-import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
@@ -21,9 +20,7 @@ const SignupScreen = ({navigation}) => {
     const [mobileNumber, setMobileNumber] = useState('');
     const [confirmpassword, setConfirmPassword] = useState('');
     const [hidePass, setHidePass] = useState(false);
-    
     const [error, setError] = useState({field: '', message:''});
-
 
 const signup = async (firstname,lastname ,email, password, confirmpassword, mobileNumber) => {
     try {
@@ -40,8 +37,6 @@ const signup = async (firstname,lastname ,email, password, confirmpassword, mobi
       console.error(error);
     }
   };
-
-
 
     const handleSignup = () => {
 
@@ -106,8 +101,12 @@ const signup = async (firstname,lastname ,email, password, confirmpassword, mobi
        
     return (
 
-<SafeAreaView style={styles.container}>
-        <KeyboardAwareScrollView enableAutomaticScroll>
+<SafeAreaView 
+  style={styles.container} >
+    <KeyboardAwareScrollView
+      showsVerticalScrollIndicator={false}
+      enableAutomaticScroll
+    >
     <>
     <View style={{flexDirection:"row"}}>
         <Image
@@ -156,7 +155,7 @@ const signup = async (firstname,lastname ,email, password, confirmpassword, mobi
         />
         <TouchableOpacity> 
             <Ionicons  
-              name={hidePass ? 'eye' : 'eye-off'}
+              name={hidePass ? 'eye-off' : 'eye'}
               size={24} 
               color="black" 
               style={{
@@ -178,7 +177,7 @@ const signup = async (firstname,lastname ,email, password, confirmpassword, mobi
        
         <TouchableOpacity> 
             <Ionicons  
-              name={hidePass ? 'eye' : 'eye-off'}
+              name={hidePass ? 'eye-off' : 'eye'}
               size={24} 
               color="black" 
               style={{
@@ -229,7 +228,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         flexDirection:'column',
-        //padding:15,
+        padding:25,
         backgroundColor: "white",
     },
     Button:{
