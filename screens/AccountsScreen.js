@@ -50,10 +50,10 @@ const AccountsScreen = ({navigation}) => {
         <AntDesign onPress={pickImage} style={{position: 'absolute', top: 50, left: 50}} name="camera" size={24} color="black" />
       </View>
 
-      <View style={{width:500}}>
+      {/* <View style={{width:500}}>
         <Text style={{marginTop:10, marginLeft:30}}>{user.name}</Text>
         <Text style={{marginTop:10, marginLeft:30}}>{user.email}</Text>
-      </View>
+      </View> */}
 
     </View> 
 
