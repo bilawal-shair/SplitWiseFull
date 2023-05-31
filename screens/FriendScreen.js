@@ -6,7 +6,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const GroupScreen = ({navigation}) => {
+const FriendScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex:1}}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
@@ -44,7 +44,7 @@ const GroupScreen = ({navigation}) => {
   )
 }
 
-export default GroupScreen
+export default FriendScreen
 
 const styles = StyleSheet.create({
   header:{
