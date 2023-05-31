@@ -1,26 +1,16 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 import { MaterialCommunityIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
-
-
-
-import { useState } from 'react';
-import AddGroup from './AddGroup';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { RFPercentage as rfp, RFValue as rfv } from 'react-native-responsive-fontsize';
-
-
-
-import { FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
 import AddGroup from './AddGroup';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
 // import { useSelector } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+const GroupScreen = ({ navigation }) => {
 
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -60,114 +50,80 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
   return (
   
     <MenuProvider>
+      <SafeAreaView style={{flex:1}}>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
+          <View style={styles.header}>
 
-     <View style={styles.header}>
-const GroupScreen = ({ navigation }) => {
-  // const user = useSelector((state)=> state.user.user);
-  // if (user) {
-  //   // User information is available in the Redux store
-  //   console.log('User information:', user);
-  // } else {
-  //   // User information is not available in the Redux store
-  //   console.log('User information is not available');
-  // }
+            <TouchableOpacity>
+              <FontAwesome name="search" size={24} color="black" style={{ marginRight: 30 }} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Addgroup")}>
+              <AntDesign name="addusergroup" size={24} color="black" style={{ marginRight: 15 }} />
+            </TouchableOpacity>
+          </View>
 
-  return (
-    <SafeAreaView style={{flex:1}}>
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
-      <View style={styles.header}>
+          <View style={{  marginTop: 40 }}>
+            <Text style={{ fontSize: 18, marginLeft: 25 }}>Welcome to Splitwise,Bilawal!</Text>
+          </View>
 
-        <TouchableOpacity>
-          <FontAwesome name="search" size={24} color="black" style={{ marginRight: 30 }} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Addgroup")}>
-          <AntDesign name="addusergroup" size={24} color="black" style={{ marginRight: 15 }} />
-        </TouchableOpacity>
-      </View>
+          <View style={{ flex: 1 }}>
+            <Menu >
+              <MenuTrigger>
+                <MaterialCommunityIcons style={{ padding: 10, marginLeft: 300, marginTop: -35, height: 50 }} name="menu-open" size={35} color="black" />
+              </MenuTrigger>
+              <MenuOptions optionsContainerStyle={{ marginLeft: 150, marginTop: 30 }}>
+                <MenuOption onSelect={() => handleOptionSelection('All Group')}>
+                  <View style={{ flexDirection: "row", marginTop: 10, marginLeft: 15 }}>
+                    <Entypo style={{ marginTop: 8 }} name="circle" size={18} color="black" />
+                    <Text style={{ padding: 10 }}>All groups</Text>
+                  </View>
+                </MenuOption>
 
-      <View style={{  marginTop: 40 }}>
+                <MenuOption onSelect={() => handleOptionSelection('outStandingBalance')}>
+                  <View style={{ flexDirection: "row", marginLeft: 15 }}>
+                    <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
+                    <Text style={{ padding: 10 }}>Outstanding balance</Text>
+                  </View>
+                </MenuOption>
 
-        <Text style={{ fontSize: 18, marginLeft: 25 }}>Welcome to Splitwise,Bilawal!</Text>
+                <MenuOption onSelect={() => handleOptionSelection('groupOweScreen')}>
+                  <View style={{ flexDirection: "row", marginLeft: 15 }}>
+                    <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
+                    <Text style={{ padding: 10 }}>Groups ypu owe</Text>
+                  </View>
+                </MenuOption>
 
-      </View>
+                <MenuOption onSelect={() => handleOptionSelection('thatOweScreen')}>
+                  <View style={{ flexDirection: "row", marginLeft: 15 }}>
+                    <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
+                    <Text style={{ padding: 10 }}>Groups that owe you</Text>
+                  </View>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+          </View>
 
+          <Image
+            style={{ height: 150, width: 150, alignSelf: 'center', borderRadius: 100, marginTop: 40, marginLeft: -10 }}
+            source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJICAGv_L0qYVN1XfisY8xSlKRWrpYbNjzqA&usqp=CAU' }}
+          />
 
-      <View style={{ flex: 1 }}>
-        <Menu >
+          <Text style={{ padding: 30, fontSize: 20, textAlign: 'center' }}>Splitwise groups you create or are added to will show here.</Text>
 
-          <MenuTrigger>
-            <MaterialCommunityIcons style={{ padding: 10, marginLeft: 300, marginTop: -35, height: 50 }} name="menu-open" size={35} color="black" />
-          </MenuTrigger>
-          <MenuOptions optionsContainerStyle={{ marginLeft: 150, marginTop: 30 }}>
-            <MenuOption onSelect={() => handleOptionSelection('All Group')}>
+          <View style={{ height: 40, width: 200, alignSelf: 'center', borderColor: 'green', borderWidth: 1, borderRadius: 6 }} >
+            <AntDesign.Button name="addusergroup" backgroundColor="white" color="green" size={20} onPress={() => navigation.navigate("Addgroup")} >
+              <Text style={{ color: 'green', textAlign: 'center', fontSize: 17 }}>Start a new group </Text>
+            </AntDesign.Button>
+          </View>
 
-              <View style={{ flexDirection: "row", marginTop: 10, marginLeft: 15 }}>
+          {renderSelectedView()}
+            <View style={{ alignSelf: 'flex-end', paddingVertical: 120, alignItems: 'center', marginRight: 20, marginTop: 10 }}>
+              <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E' height={50} width={150} borderRadius={30} marginLeft={13}>
+                <Text style={{ color: 'white', fontSize: 17 }}>Add Expense</Text>
+              </Entypo.Button>
+            </View>
 
-                <Entypo style={{ marginTop: 8 }} name="circle" size={18} color="black" />
-                <Text style={{ padding: 10 }}>All groups</Text>
-
-              </View>
-
-            </MenuOption>
-            <MenuOption onSelect={() => handleOptionSelection('outStandingBalance')}>
-
-              <View style={{ flexDirection: "row", marginLeft: 15 }}>
-
-                <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
-                <Text style={{ padding: 10 }}>Outstanding balance</Text>
-
-              </View>
-
-            </MenuOption>
-            <MenuOption onSelect={() => handleOptionSelection('groupOweScreen')}>
-
-              <View style={{ flexDirection: "row", marginLeft: 15 }}>
-
-                <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
-                <Text style={{ padding: 10 }}>Groups ypu owe</Text>
-              </View>
-
-            </MenuOption>
-
-            <MenuOption onSelect={() => handleOptionSelection('thatOweScreen')}>
-
-              <View style={{ flexDirection: "row", marginLeft: 15 }}>
-
-                <Entypo name="circle" size={18} color="black" style={{ marginTop: 8 }} />
-                <Text style={{ padding: 10 }}>Groups that owe you</Text>
-
-              </View>
-
-            </MenuOption>
-          </MenuOptions>
-        </Menu>
-      </View>
-
-      <Image
-        style={{ height: 150, width: 150, alignSelf: 'center', borderRadius: 100, marginTop: 40, marginLeft: -10 }}
-        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJICAGv_L0qYVN1XfisY8xSlKRWrpYbNjzqA&usqp=CAU' }}
-      />
-
-      <Text style={{ padding: 30, fontSize: 20, textAlign: 'center' }}>Splitwise groups you create or are added to will show here.</Text>
-
-      <View style={{ height: 40, width: 200, alignSelf: 'center', borderColor: 'green', borderWidth: 1, borderRadius: 6 }} >
-        <AntDesign.Button name="addusergroup" backgroundColor="white" color="green" size={20} onPress={() => navigation.navigate("Addgroup")} >
-          <Text style={{ color: 'green', textAlign: 'center', fontSize: 17 }}>Start a new group </Text>
-        </AntDesign.Button>
-      </View>
-
-      {renderSelectedView()}
-      <View style={{ alignSelf: 'flex-end', paddingVertical: 120, alignItems: 'center', marginRight: 20, marginTop: 10 }}>
-        <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E' height={50} width={150} borderRadius={30} marginLeft={13}>
-          <Text style={{ color: 'white', fontSize: 17 }}>Add Expense</Text>
-        </Entypo.Button>
-      </View>
-    
-
-    
-    </MenuProvider>
-
-      <View style={{flex:1}}>
+      {/* <View style={{flex:1}}>
         <Text style={{marginTop: 20, fontSize: 20, padding: 20}}>Welcome to Splitwise!</Text>
         <Image 
           style={{width: wp('60%'), height: hp('28%'), alignSelf: 'center', borderRadius: 100}}
@@ -184,11 +140,15 @@ const GroupScreen = ({ navigation }) => {
           <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E'  height={50} width={150} borderRadius={30} marginLeft={13} paddingVertical={ rfv(10)}>
             <Text style={{color: 'white', fontSize: 17}}>Add Expense</Text>
           </Entypo.Button>
-          {/* <Popup /> */}
+  
+
         </View>
-      </View>
+      </View> */}
+
       </KeyboardAwareScrollView>
     </SafeAreaView>
+
+    </MenuProvider>
 
   )
 }

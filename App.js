@@ -31,7 +31,6 @@ export default function App() {
     <Provider store={store}>
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Stack.Navigator initialRouteName='Dashboard' screenOptions={{headerShown: false}}>
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='Dashboard'>
         {showSplashScreen ? (<Stack.Screen name='Splash' component={SplashScreen} />) : null}
         <Stack.Screen name="Main" component={MainScreen} />
