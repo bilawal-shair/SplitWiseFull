@@ -7,15 +7,30 @@ import { Input } from '@rneui/themed';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { RFValue as rfv, RFPercentage as rfp } from 'react-native-responsive-fontsize';
+import axios from 'axios';
 
 const AddGroup = ({navigation}) => {
+
   const [type,setType]=useState();
+  const [gpname, setGpname]=useState();
+  
+  const createGroup = async (gpname, type) => {
+    try {
+      const response = await axios.post('http://20.193.132.20:83/api/Group/InsertGroup', {
+        groupName: gpname,
+        groupType: type,
+      });
+      console.log(response.data); // Handle the response data as per your requirements
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <SafeAreaView>
       <View style={styles.header}>
         <AntDesign name="close" size={24} color="black" marginLeft={20} onPress={()=>navigation.goBack()}/>
         <Text style={{flex: 1, fontSize: rfp(3), textAlign:'center'}}>Create a group</Text>
-        <Text style={{marginRight: rfv(20), fontSize: rfp(2.5), color:'green'}} onPress={()=> navigation.navigate("AllGroupScreen")}  >Done</Text>   
+        <Text style={{marginRight: rfv(20), fontSize: rfp(2.5), color:'green'}} onPress={() => createGroup(gpname, type)}  >Done</Text>   
       </View>
       <View style={{flexDirection:'row', }}>
         <View style={{marginLeft: rfv(20), marginTop:rfv(40), width: wp(16), height:hp(8), backgroundColor:'#caced3', 
