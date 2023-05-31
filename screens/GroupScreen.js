@@ -7,13 +7,10 @@ import { useState } from 'react';
 import AddGroup from './AddGroup';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
-// import { useSelector } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const GroupScreen = ({ navigation }) => {
-
   const [selectedOption, setSelectedOption] = useState(null);
-
   const handleOptionSelection = (option) => {
     setSelectedOption(option);
   };
@@ -45,31 +42,23 @@ const GroupScreen = ({ navigation }) => {
       );
     }
   };
-
-
   return (
-  
     <MenuProvider>
       <SafeAreaView style={{flex:1}}>
-        <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
-          <View style={styles.header}>
-
-            <TouchableOpacity>
-              <FontAwesome name="search" size={24} color="black" style={{ marginRight: 30 }} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Addgroup")}>
-              <AntDesign name="addusergroup" size={24} color="black" style={{ marginRight: 15 }} />
-            </TouchableOpacity>
-          </View>
-
-          <View style={{  marginTop: 40 }}>
-            <Text style={{ fontSize: 18, marginLeft: 25 }}>Welcome to Splitwise,Bilawal!</Text>
-          </View>
-
-          <View style={{ flex: 1 }}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <FontAwesome name="search" size={24} color="black" style={{marginRight: 30}}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=> navigation.navigate('Addgroup')}>
+          <AntDesign name="addusergroup" size={24} color="black" style={{marginRight: 15}}/>
+        </TouchableOpacity> 
+      </View>
+      <View style={{flex:1}}>
+        <Text style={{marginTop: 20, fontSize: 20, padding: 20}}>Welcome to Splitwise!</Text>
             <Menu >
               <MenuTrigger>
-                <MaterialCommunityIcons style={{ padding: 10, marginLeft: 300, marginTop: -35, height: 50 }} name="menu-open" size={35} color="black" />
+                <MaterialCommunityIcons style={{alignSelf:'flex-end', padding: rfv(10), marginTop:rfv(-60)}} name="menu-open" size={35} color="black" />
               </MenuTrigger>
               <MenuOptions optionsContainerStyle={{ marginLeft: 150, marginTop: 30 }}>
                 <MenuOption onSelect={() => handleOptionSelection('All Group')}>
@@ -101,27 +90,27 @@ const GroupScreen = ({ navigation }) => {
                 </MenuOption>
               </MenuOptions>
             </Menu>
-          </View>
-
-          <Image
-            style={{ height: 150, width: 150, alignSelf: 'center', borderRadius: 100, marginTop: 40, marginLeft: -10 }}
-            source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJICAGv_L0qYVN1XfisY8xSlKRWrpYbNjzqA&usqp=CAU' }}
-          />
-
-          <Text style={{ padding: 30, fontSize: 20, textAlign: 'center' }}>Splitwise groups you create or are added to will show here.</Text>
-
-          <View style={{ height: 40, width: 200, alignSelf: 'center', borderColor: 'green', borderWidth: 1, borderRadius: 6 }} >
+        <Image 
+          style={{width: wp('60%'), height: hp('28%'), alignSelf: 'center', borderRadius: 100}}
+          source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJICAGv_L0qYVN1XfisY8xSlKRWrpYbNjzqA&usqp=CAU'}}
+        />
+        <Text style={{padding:rfv(30), fontSize: 20, textAlign: 'center'}}>Splitwise groups you create or are added to will show here.</Text>
+        
+        <View style={{height: 40, width: 200, alignSelf:'center', borderColor: 'green', borderWidth: 1, borderRadius: 4}} >
             <AntDesign.Button name="addusergroup" backgroundColor="white" color="green" size={20} onPress={() => navigation.navigate("Addgroup")} >
               <Text style={{ color: 'green', textAlign: 'center', fontSize: 17 }}>Start a new group </Text>
             </AntDesign.Button>
-          </View>
-
-          {renderSelectedView()}
-            <View style={{ alignSelf: 'flex-end', paddingVertical: 120, alignItems: 'center', marginRight: 20, marginTop: 10 }}>
-              <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E' height={50} width={150} borderRadius={30} marginLeft={13}>
-                <Text style={{ color: 'white', fontSize: 17 }}>Add Expense</Text>
-              </Entypo.Button>
-            </View>
+        </View>
+        {renderSelectedView()}
+        <View style={{ paddingVertical: rfv(50),alignSelf:'flex-end',  alignItems:'center' , marginRight:20}}>
+          <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E'  height={50} width={150} borderRadius={30} marginLeft={13} paddingVertical={ rfv(10)}>
+            <Text style={{color: 'white', fontSize: 17}}>Add Expense</Text>
+          </Entypo.Button>
+        </View>
+      </View>
+      </KeyboardAwareScrollView> 
+    </SafeAreaView>
+      
 
       {/* <View style={{flex:1}}>
         <Text style={{marginTop: 20, fontSize: 20, padding: 20}}>Welcome to Splitwise!</Text>
@@ -145,8 +134,7 @@ const GroupScreen = ({ navigation }) => {
         </View>
       </View> */}
 
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+     
 
     </MenuProvider>
 
@@ -162,7 +150,10 @@ const styles = StyleSheet.create({
     height: 40,
     borderBottomColor: '#d3d3d3',
     borderBottomWidth: 2,
-    marginTop: 40,
+    marginTop: 20,
     justifyContent: 'flex-end',
   }
 })
+   
+    
+    
