@@ -14,9 +14,9 @@ const AddGroup = ({navigation}) => {
   const [type,setType]=useState();
   const [gpname, setGpname]=useState();
   
-  const createGroup = async (gpname, type) => {
+  const createGroup = async () => {
     try {
-      const response = await axios.post('http://20.193.132.20:83/api/Group/InsertGroup', {
+      const response = await axios.post('http://45.115.86.126:83/api/Group/InsertGroup', {
         groupName: gpname,
         groupType: type,
       });
@@ -30,7 +30,7 @@ const AddGroup = ({navigation}) => {
       <View style={styles.header}>
         <AntDesign name="close" size={24} color="black" marginLeft={20} onPress={()=>navigation.goBack()}/>
         <Text style={{flex: 1, fontSize: rfp(3), textAlign:'center'}}>Create a group</Text>
-        <Text style={{marginRight: rfv(20), fontSize: rfp(2.5), color:'green'}} onPress={() => createGroup(gpname, type)}  >Done</Text>   
+        <Text style={{marginRight: rfv(20), fontSize: rfp(2.5), color:'green'}} onPress={createGroup}  >Done</Text>   
       </View>
       <View style={{flexDirection:'row', }}>
         <View style={{marginLeft: rfv(20), marginTop:rfv(40), width: wp(16), height:hp(8), backgroundColor:'#caced3', 
@@ -39,7 +39,9 @@ const AddGroup = ({navigation}) => {
         </View>
         <View style={{width:wp(180)}}>
           <Text style={{ marginLeft:rfv(10),marginTop:rfv(40), fontSize: rfp(2.2)}}>Group name</Text>
-          <Input style={{ borderBottomWidth:1, borderBottomColor:'green'}}/>
+          <Input style={{ borderBottomWidth:1, borderBottomColor:'green'}}
+          value={gpname}
+          onChangeText ={(text) => setGpname(text)}/>
         </View>
       </View>
       <Text style={{marginLeft:rfv(20), fontSize:rfp(2.5), marginBottom:rfv(20)}}>Type</Text>
