@@ -27,7 +27,8 @@ const SignupScreen = ({navigation}) => {
 
 const signup = async (firstname,lastname ,email, password, confirmpassword, mobileNumber) => {
     try {
-      const response = await axios.post('http://20.193.132.20:83/api/User/Register', { firstname, lastname, email, password, mobileNumber, confirmpassword });
+      const response = await axios.post('http://45.115.86.126:83/api/User/Register', { firstname, lastname, email, password, mobileNumber, confirmpassword });
+      console.log(response)
       console.log(firstname, lastname, email, password, mobileNumber, confirmpassword);
 
       if(response.data ===  null){
