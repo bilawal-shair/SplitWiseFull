@@ -13,10 +13,9 @@ import AddGroup from './screens/AddGroup';
 
 
 import ForgetPassword from './screens/ForgetPassword';
-
-
 import { Provider } from 'react-redux';
 import store from './store';
+import ExpenseScreen from './screens/ExpenseScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -38,6 +37,10 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
         <Stack.Screen name="Addgroup" component={AddGroup} />
+
+        <Stack.Screen name="Expense" component={ExpenseScreen}/>
+      
+
         <Stack.Screen name="Reset Password" component={ForgetPassword} options={{headerShown: true}}/>
       </Stack.Navigator>
     </NavigationContainer>
