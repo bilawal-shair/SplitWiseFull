@@ -8,14 +8,9 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { RFValue as rfv, RFPercentage as rfp } from 'react-native-responsive-fontsize';
 import axios from 'axios';
 
-
 const AddGroup = ({ navigation }) => {
-
   const [groupName, setGroupName] = useState('');
-  // const [imageURL, setImageURL] = useState('');
-
   const [type, setType] = useState('');
-
   const handleAddGroupName = () => {
     axios.post('YOUR_API_ENDPOINT', { groupName })
       .then(response => {
@@ -23,6 +18,14 @@ const AddGroup = ({ navigation }) => {
       })
       .catch(error => {
         console.log(error);
+  const [type,setType]=useState();
+  const [gpname, setGpname]=useState();
+  
+  const createGroup = async () => {
+    try {
+      const response = await axios.post('http://45.115.86.126:83/api/Group/InsertGroup', {
+        groupName: gpname,
+        groupType: type,
       });
   };
 
@@ -34,6 +37,9 @@ const AddGroup = ({ navigation }) => {
         <AntDesign name="close" size={24} color="black" marginLeft={20} onPress={() => navigation.goBack()} />
         <Text style={{ flex: 1, fontSize: rfp(3), textAlign: 'center' }}>Create a group</Text>
         <Text style={{ marginRight: rfv(20), fontSize: rfp(2.5), color: 'green' }} onPress={() => { navigation.navigate("GroupSettle"); { handleAddGroupName } }} >Done  </Text>
+        <AntDesign name="close" size={24} color="black" marginLeft={20} onPress={()=>navigation.goBack()}/>
+        <Text style={{flex: 1, fontSize: rfp(3), textAlign:'center'}}>Create a group</Text>
+        <Text style={{marginRight: rfv(20), fontSize: rfp(2.5), color:'green'}} onPress={createGroup}  >Done</Text>   
       </View>
 
 
@@ -44,6 +50,7 @@ const AddGroup = ({ navigation }) => {
         }}>
           <MaterialIcons name="add-a-photo" size={24} color="black" />
         </View>
+
         <View style={{ width: wp(180) }}>
           
             <View style={{ width: wp(60),marginTop: rfv(50), marginLeft: rfv(15) }}>
@@ -55,6 +62,11 @@ const AddGroup = ({ navigation }) => {
                  />
             </View>
 
+        <View style={{width:wp(180)}}>
+          <Text style={{ marginLeft:rfv(10),marginTop:rfv(40), fontSize: rfp(2.2)}}>Group name</Text>
+          <Input style={{ borderBottomWidth:1, borderBottomColor:'green'}}
+          value={gpname}
+          onChangeText ={(text) => setGpname(text)}/>
         </View>
       </View>
       <Text style={{ marginLeft: rfv(20), fontSize: rfp(2.5), marginBottom: rfv(20) }}>Type</Text>

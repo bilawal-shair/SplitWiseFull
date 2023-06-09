@@ -6,7 +6,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const GroupScreen = ({navigation}) => {
+const FriendScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex:1}}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableAutomaticScroll>
@@ -33,7 +33,7 @@ const GroupScreen = ({navigation}) => {
           </Ionicons.Button>
         </View>
         <View style={{ paddingVertical: rfv(50),alignSelf:'flex-end',  alignItems:'center' , marginRight:20}}>
-          <Entypo.Button name="text" size={24} color="white" backgroundColor='#11C08E'  height={50} width={150} borderRadius={30} marginLeft={13} paddingVertical={ rfv(10)}>
+          <Entypo.Button onPress={() => navigation.navigate('Expense')} name="text" size={24} color="white" backgroundColor='#11C08E'  height={50} width={150} borderRadius={30} marginLeft={13} paddingVertical={ rfv(10)}>
             <Text style={{color: 'white', fontSize: 17}}>Add Expense</Text>
           </Entypo.Button>
         </View>
@@ -44,7 +44,7 @@ const GroupScreen = ({navigation}) => {
   )
 }
 
-export default GroupScreen
+export default FriendScreen
 
 const styles = StyleSheet.create({
   header:{

@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
 
       const login = async (email, password) => {
         try {
-          const response = await axios.post('http://20.193.132.20:83/api/User/Login', { email, password });
+          const response = await axios.post('http://45.115.86.126:83/api/User/Login', { email, password });
           // Process the response and handle success
           if(response.data === true){
            navigation.navigate('Dashboard')
