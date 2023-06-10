@@ -6,7 +6,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { RFPercentage as rfp, RFValue as rfv} from 'react-native-responsive-fontsize';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';''
 import { ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../UserSlices/UserReducer';

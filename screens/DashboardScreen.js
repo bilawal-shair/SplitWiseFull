@@ -7,8 +7,21 @@ import FriendScreen from './FriendScreen';
 import ActivityScreen from './ActivityScreen';
 import AccountsScreen from './AccountsScreen';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import GroupSettle from './GroupSettle';
 
 const Tab = createBottomTabNavigator();
+// const Stack = createNativeStackNavigator()
+
+// const Dashboard=()=>{
+//     return(
+//         <Stack.Navigator>
+//             <Stack.Screen name="Home" component={GroupScreen} />
+//             <Stack.Screen name="Home1" component={GroupSettle} />
+//             <Stack.Screen name="Home2" component={ActivityScreen} />
+//         </Stack.Navigator>
+//     )
+// }
 
 const DashboardScreen = () => {
     return (
@@ -54,6 +67,7 @@ const DashboardScreen = () => {
                         ),
                     }}
                 />
+                
         </Tab.Navigator>
       
     );
